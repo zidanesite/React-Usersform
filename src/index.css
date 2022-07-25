@@ -11,3 +11,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.card-link{
+  background-color: blue;
+  padding: 5px;
+  border-radius: 7px;
+  color: white;
+  font-size: 0.5rem;
+  font-weight: bold;
+}
+.anotherlink{
+  background-color: orange;
+  color: black !important;
+  
+}
