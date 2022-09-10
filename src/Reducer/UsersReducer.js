@@ -11,8 +11,14 @@ let initialState = {
       ],
     };
 
-    let UserReducer = ( state = {}, action ) =>{
-    return;
-}
+    let UserReducer = ( state = initialState, action ) =>{
+      switch(action.type){
+          case "ADD_NEW_USER":
+            return{...state, user: [...state.users, action.payload] };
+          
+            default:
+                  return state;
+      }
+};
 
 export default UserReducer;

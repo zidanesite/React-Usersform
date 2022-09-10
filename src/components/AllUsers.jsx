@@ -1,28 +1,35 @@
-import React from 'react'
-import Card from 'react-bootstrap/Card';
+import React from "react";
+import User from "./User";
+import { Row, Container } from "react-bootstrap";
+import { connect, useSelector } from "react-redux";
 
 function AllUsers(props) {
-  return (
-    <div>
-        <h1>Allusers</h1>
-        {props.userData.map((user, index) =>{
-          return(
-            <Card key={index} style={{ width: '18rem' }}>
-            <Card.Body>
-              <Card.Title>{user.name}</Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">{user.email}</Card.Subtitle>
-              <Card.Text>
-                How many time do you hit the jackpot?<br/>
-                {user.gen} Times
-              </Card.Text>
-              <Card.Link href="#">Card Link</Card.Link>
-              <Card.Link href="#" className="anotherlink">Another Link</Card.Link>
-            </Card.Body>
-          </Card>
-          );
-          })}
-    </div>
-  )
+	const { users } = useSelector((state) => {
+		return state;
+	});
+	return (
+		<Container>
+			<Row>
+				{users.map((item) => {
+					return (
+						<User
+							key={item.id}
+							userBio={item}
+							delete={props.delete}
+							editUser={props.editUser}
+						/>
+					);
+				})}
+			</Row>
+		</Container>
+	);
 }
 
-export default AllUsers
+const mapState = (state) => {
+	return {
+		users: state.users,
+	};
+};
+export default connect(mapState)(AllUsers);
+
+// export default AllUsers;

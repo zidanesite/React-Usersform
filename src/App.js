@@ -1,49 +1,62 @@
-import logo from './logo.svg';
-import React, {useState} from 'react';
-import './App.css';
-import AddUsersform from './components/AddUsersform';
-import AllUsers from './components/AllUsers';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-
+import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Card, Row, Col, Container } from "react-bootstrap";
+import AllUsers from "./components/AllUsers";
+import AddUserForm from "./components/AddUserForm";
 
 function App() {
-  const [user, setUser] = useState([
-    {
-      name: "Alaric",
-      email: "Alaric@email.com",
-      gen: 55,
-    },
+	const [users, setUsers] = useState([
+		{
+			name: "Alaric",
+			gen: 22,
+			email: "Alaric@email.com",
+			id: "78478chukjchho3fw",
+		},
+		{
+			name: "Z-world",
+			gen: 25,
+			email: "Z-world@hit.com",
+			id: "hhheiuchieih939u494",
+		},
+	]);
+	const addNewUser = (user) => {
+		user.id = Math.random().toString();
+		setUsers([...users, user]);
+		console.log(user);
+	};
 
-    {
-      name: "Z-world",
-      email: "Z-world@hit.com",
-      gen: 89,
-    },
-  ]);
-  const AddNewUser = (users) => {
-    setUser([
-      ...user,
-      { name: users.name, email: users.email, gen: users.gen },
-    ]);
-  };
-  return (
-    <div>
-      <Container>
-        <Row>
-          <Col md={6}>
-            <AddUsersform retrieve={AddNewUser}/>
-          </Col>
+	const deleteUser = (id) => {
+		setUsers(
+			users.filter((user) => {
+				if (user.id !== id) {
+					return user;
+				}
+			})
+		);
+	};
+	const EditUser = (id, newData) => {
+		setUsers(
+			users.map((user) => {
+				if (user.id === id) {
+					return newData;
+				}
+				return user;
+			})
+		);
+	};
 
-          <Col md={6}>
-            <AllUsers userData={user}/>
-          </Col>
-        </Row>
-      </Container>
-    </div>
-  );
+	return (
+		<Container style={{ marginTop: "30px" }}>
+			<Row>
+				<Col>
+					<AddUserForm newUser={addNewUser} />
+				</Col>
+				<Col>
+					<AllUsers userData={users} editUser={EditUser} delete={deleteUser} />
+				</Col>
+			</Row>
+		</Container>
+	);
 }
 
 export default App;
